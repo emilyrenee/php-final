@@ -1,6 +1,6 @@
 <?php
 
-namespace Model;
+namespace App;
 
 class Employee extends \Model
 {
@@ -32,7 +32,7 @@ class Employee extends \Model
     public function validate($data)
     {
         $valid = false;
-        
+
         if ($data && $data->name && $data->address) {
             $valid = true;
         };
