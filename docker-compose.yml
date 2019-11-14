@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+    app:
+        image: gentux/php:lumen-5.6-ci
+        networks:
+            - modules
+        volumes:
+            - "./:/var/www"
+    web:
+        image: gentux/nginx:fpm
+        ports: 
+            - 80:80
+        networks: 
+            - modules
+        links:
+            - 'app:fpm.local'
+    mysql:
+        image: mysql:5.6
+        ports:
+            - 3307:3306
+        networks:
+            - modules
+        environment:
+            MYSQL_ROOT_PASSWORD: secret
+            MYSQL_DATABASE: modules
+            MYSQL_USER: modules
+            MYSQL_PASSWORD: secret
+networks:
+    modules: 
+        name: 'modules'
