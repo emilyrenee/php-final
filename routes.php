@@ -1,5 +1,5 @@
 <?php
 
 $router->define([
-    '' => './resources/views/view.html',
+    '' => '/var/www/resources/views/view.html',
 ]);

@@ -1,11 +1,12 @@
 <?php
-require('./app/Router.php');
-require('./app/Request.php');
+require('../app/Router.php');
+require('../app/Request.php');
 
 
-require Router::load('routes.php')
+require Router::load('../routes.php')
     ->get(Request::uri());
 
+// print('Emily is here');
 // $router = new Router(new Request);
 
 // var_dump('Here!!!!!!');

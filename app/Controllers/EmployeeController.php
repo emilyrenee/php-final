@@ -19,7 +19,7 @@ class EmployeeController
         $employeeData = $request->all();
         $employee = Employee::save($employeeData);
 
-        $view = new view('../../resources/views/view.html');
+        $view = new view('../../resources/views/form.html');
         $view->assign('employee', $employee);
 
         return $view;
