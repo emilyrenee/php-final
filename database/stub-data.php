@@ -1,13 +1,12 @@
 <?php
+
 $servername = "localhost:3307";
 $username = "modules";
 $password = "secret";
 $dbname = "modules";
 
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
