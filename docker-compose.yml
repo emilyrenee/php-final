@@ -9,7 +9,7 @@ services:
     web:
         image: gentux/nginx:fpm
         ports: 
-            - 80:80
+            - 81:80
         networks: 
             - modules
         links:
@@ -17,7 +17,7 @@ services:
     mysql:
         image: mysql:5.6
         ports:
-            - 3307:3306
+            - 3306:3306
         networks:
             - modules
         environment:
