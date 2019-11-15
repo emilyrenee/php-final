@@ -66,13 +66,14 @@ class Employee
     public function save($data)
     {
         // first - validate
-        $isValid = $this->validate($data);
+        $isValid = self::validate($data);
 
         if (!$isValid) {
             // return false if not valid
             return false;
         } else {
             // return true or false if insert or update was success
+            var_dump('it is valid');
         }
     }
 

@@ -56,6 +56,16 @@ class EmployeeController
     {
         var_dump($_POST['name']);
         var_dump($_POST['address']);
+
+        $name = $_POST['name'];
+        $address = $_POST['address'];
+
+        $data = new \stdClass();
+
+        $data->name = $name;
+        $data->address = $address;
+
+        $employee = Employee::save($data);
         // $employee = Employee::save($employeeData);
 
         // $view = new view('../../resources/views/form.html');
