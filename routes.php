@@ -1,8 +1,8 @@
 <?php
 
 $router->get('', 'EmployeeController@index'); // return all employees
-// $router->get('new', 'EmployeeController.php');
-// $router->post('create', '/EmployeeController.php');
+$router->get('create', 'EmployeeController@viewCreateEmployee'); 
+$router->post('create', 'EmployeeController@createEmployee');
 // $router->get('/employee/{$id}/view', function() {
 //     // return employee
 // });

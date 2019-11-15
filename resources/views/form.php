@@ -1,9 +1,22 @@
-<?php require('partials/head.php'); ?>
+<?php require('/var/www/resources/views/partials/header.php'); ?>
 
-<form action="/create" method="post">
-    <label for="name">Name</label>
-    <input type="text" name="name" id="">
-    <label for="address">Address</label>
-    <input type="text" name="address" id="">
-    <input type="submit" value="Submit">
-</form>
+<div class="container">
+    <h1>Create a New Employee</h1>
+    <hr />
+
+    <div class="form-container">
+        <form action="/create" method="post">
+            <div class="form-item">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="">
+            </div>
+            <div class="form-item">
+                <label for="address">Address</label>
+                <input type="text" name="address" id="">
+            </div>
+            <div class="form-item">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+</div>

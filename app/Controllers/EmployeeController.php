@@ -29,10 +29,8 @@ class EmployeeController
 {
     public function index()
     {
-        var_dump('getting to index!');
         $employees = Employee::findAll();
-        var_dump($employees);
-        $view = view('index');
+        $view = view('index', compact('employees'));
 
         return $view;
     }
@@ -42,19 +40,22 @@ class EmployeeController
         $id = $request->id;
         $employee = Employee::find($id);
 
-        $view = new view('../../resources/views/view.html');
-        $view->assign('employee', $employee);
+        // $view = new view('../../resources/views/view.html');
+        // $view->assign('employee', $employee);
 
+        return;
+    }
+
+    public function viewCreateEmployee()
+    {
+        $view = view('form');
         return $view;
     }
 
-    public function createEmployee(Request $request)
+    public function createEmployee()
     {
-        var_dump($_SERVER);
-        var_dump($_REQUEST);
         var_dump($_POST['name']);
         var_dump($_POST['address']);
-        // $employeeData = $request->all();
         // $employee = Employee::save($employeeData);
 
         // $view = new view('../../resources/views/form.html');
