@@ -73,6 +73,11 @@ class Employee
             return false;
         } else {
             // return true or false if insert or update was success
+            App::get('database')->insert('employees', [
+                'name' => $data->name,
+                'address' => $data->address
+            ]);
+            
             var_dump('it is valid');
         }
     }
