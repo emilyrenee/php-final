@@ -13,7 +13,6 @@ use App\Employee;
 function view($name, $data = [])
 {
     extract($data);
-    var_dump($name);
     return require "/var/www/resources/views/{$name}.php";
 }
 /**

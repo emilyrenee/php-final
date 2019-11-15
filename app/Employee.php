@@ -22,10 +22,8 @@ class Employee
 
     public static function findAll()
     {   
-        $employees = [];
         $employees = App::get('database')->selectAll('employees');
 
-        var_dump($employees);
         return $employees;
     }
 

@@ -9,8 +9,6 @@ class Connection
 {
     public static function makeConnection($config)
     {
-        var_dump($config['connection'] . ';dbname=' . $config['name']);
-
         try {
             return new PDO(
                 $config['connection'] . ';dbname=' . $config['name'],
