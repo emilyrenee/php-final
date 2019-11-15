@@ -1,7 +1,6 @@
 <?php
 
-namespace App;
-use App\Controllers\EmployeeController;
+namespace App\Core;
 
 class Router
 {

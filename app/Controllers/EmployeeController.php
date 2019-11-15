@@ -31,8 +31,10 @@ class EmployeeController
     public function index()
     {
         var_dump('getting to index!');
+        $employees = Employee::findAll();
+        var_dump($employees);
         $view = view('index');
-        var_dump($view);
+
         return $view;
     }
 

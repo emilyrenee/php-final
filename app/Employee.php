@@ -2,22 +2,17 @@
 
 namespace App;
 
-// all db interactions happen here
-class Employee extends \Model
-{
-    protected $servername = "localhost:3306";
-    protected $username = "modules";
-    protected $password = "secret";
-    protected $dbname = "modules";
+use App\Core\App;
 
-    function __construct()
+
+// all db interactions happen here
+class Employee
+{
+    protected $pdo;
+
+    public function __construct($pdo)
     {
-        $this->dbConn = new mysqli(
-            $this->servername,
-            $this->username,
-            $this->password,
-            $this->dbname
-        );
+
     }
 
     public static function find($id)
@@ -26,8 +21,12 @@ class Employee extends \Model
     }
 
     public static function findAll()
-    {
-        //
+    {   
+        $employees = [];
+        $employees = App::get('database')->selectAll('employees');
+
+        var_dump($employees);
+        return $employees;
     }
 
     public function validate($data)
