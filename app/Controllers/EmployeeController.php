@@ -1,23 +1,46 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Employee;
 
-// all db interactions happen here
+/**
+ * Require a view.
+ *
+ * @param  string $name
+ * @param  array  $data
+ */
+function view($name, $data = [])
+{
+    extract($data);
+    var_dump($name);
+    return require "/var/www/resources/views/{$name}.php";
+}
+/**
+ * Redirect to a new page.
+ *
+ * @param  string $path
+ */
+function redirect($path)
+{
+    header("Location: /{$path}");
+}
+
 class EmployeeController
 {
-    public function index() 
+    public function index()
     {
         var_dump('getting to index!');
-        // $view = new view('../../resources/views/view.html');
-        // return $view;
+        $view = view('index');
+        var_dump($view);
+        return $view;
     }
-    
+
     public function findEmployee(Request $request)
     {
         $id = $request->id;
         $employee = Employee::find($id);
-        
+
         $view = new view('../../resources/views/view.html');
         $view->assign('employee', $employee);
 

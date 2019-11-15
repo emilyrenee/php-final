@@ -2,6 +2,7 @@
 
 namespace App;
 
+// all db interactions happen here
 class Employee extends \Model
 {
     protected $servername = "localhost:3306";
