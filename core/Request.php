@@ -12,9 +12,18 @@ class Request
     public static function uri()
     {
         return trim(
-            parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/'
+            parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH),
+            '/'
         );
     }
+
+    public static function params()
+    {
+        // just hardcoded for id
+        $id = $_GET['id'];
+        return $id;
+    }
+
     /**
      * Fetch the request method.
      *

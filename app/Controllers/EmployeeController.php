@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Employee;
+use App\Core\Request;
 
 /**
  * Require a view.
@@ -35,15 +36,13 @@ class EmployeeController
         return $view;
     }
 
-    public function findEmployee(Request $request)
+    public function employee()
     {
-        $id = $request->id;
+        $id = Request::params();
         $employee = Employee::find($id);
+        $view = view('employee', compact('employee'));
 
-        // $view = new view('../../resources/views/view.html');
-        // $view->assign('employee', $employee);
-
-        return;
+        return $view;
     }
 
     public function viewCreateEmployee()
@@ -54,9 +53,6 @@ class EmployeeController
 
     public function createEmployee()
     {
-        var_dump($_POST['name']);
-        var_dump($_POST['address']);
-
         $name = $_POST['name'];
         $address = $_POST['address'];
 
@@ -66,11 +62,7 @@ class EmployeeController
         $data->address = $address;
 
         $employee = Employee::save($data);
-        // $employee = Employee::save($employeeData);
 
-        // $view = new view('../../resources/views/form.html');
-        // $view->assign('employee', $employee);
-
-        // return $view;
+        // TODO: return $redirect;
     }
 }

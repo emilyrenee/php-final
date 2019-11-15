@@ -3,9 +3,7 @@
 $router->get('', 'EmployeeController@index'); // return all employees
 $router->get('create', 'EmployeeController@viewCreateEmployee'); 
 $router->post('create', 'EmployeeController@createEmployee');
-// $router->get('/employee/{$id}/view', function() {
-//     // return employee
-// });
+$router->get('view', 'EmployeeController@employee');
 // $router->get('/employee/{$id}/create', function() {
 //     //
 // });

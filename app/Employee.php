@@ -4,7 +4,6 @@ namespace App;
 
 use App\Core\App;
 
-
 // all db interactions happen here
 class Employee
 {
@@ -17,7 +16,10 @@ class Employee
 
     public static function find($id)
     {
-        //
+
+        $employee = App::get('database')->selectById('employees', $id);
+
+        return $employee;
     }
 
     public static function findAll()
@@ -72,13 +74,12 @@ class Employee
             // return false if not valid
             return false;
         } else {
-            // return true or false if insert or update was success
-            App::get('database')->insert('employees', [
+            $success = App::get('database')->insert('employees', [
                 'name' => $data->name,
                 'address' => $data->address
             ]);
-            
-            var_dump('it is valid');
+            // returns true or false;
+            return $success;
         }
     }
 
