@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controllers;
-use \Model\Employee;
+use App\Employee;
 
 // all db interactions happen here
 class EmployeeController
@@ -9,8 +9,8 @@ class EmployeeController
     public function index() 
     {
         var_dump('getting to index!');
-        $view = new view('../../resources/views/view.html');
-        return $view;
+        // $view = new view('../../resources/views/view.html');
+        // return $view;
     }
     
     public function findEmployee(Request $request)
