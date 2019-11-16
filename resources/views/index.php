@@ -1,6 +1,7 @@
 <?php require('/var/www/resources/views/partials/header.php'); ?>
 
 <div class="container">
+    <a href="/create" class="nav">Add</a>
     <h1>All Employees</h1>
     <hr />
 
@@ -8,12 +9,11 @@
         <div class="employee">
             <h2><?= $employee->name; ?></h2>
             <span><?= $employee->address; ?></span>
-        </div>
-        <div>
-            <a href="#">Edit</a>
+            <div style="margin-top: .5rem">
+                <a href="view?id=<?= $employee->id?>">View</a>
+                <a href="update?id=<?= $employee->id?>">Edit</a>
+                <a href="#">Remove</a>
+            </div>
         </div>
     <?php endforeach; ?>
-    <div style="margin-top: 2rem">
-        <a href="/create">Add Employee</a>
-    </div>
 </div>

@@ -32,6 +32,7 @@ class QueryBuilder
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_CLASS);
     }
+
     /**
      * Select all records from a database table.
      *
@@ -43,6 +44,7 @@ class QueryBuilder
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_CLASS);
     }
+
     /**
      * Insert a record into a table.
      *
@@ -60,7 +62,32 @@ class QueryBuilder
         try {
             $statement = $this->pdo->prepare($sql);
             $statement->execute($parameters);
-            return true;
+            $id = $this->pdo->lastInsertId();
+            return $id;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Updates a record in a table.
+     *
+     * @param  string $table
+     * @param  array  $parameters
+     */
+    public function update($table, $parameters)
+    {
+        // UPDATE [LOW_PRIORITY] [IGNORE] table_references
+        // SET assignment_list
+        // [WHERE where_condition]
+
+        $sql = "update {$table} set name = {$parameters->name}, address = {$parameters->address} where id= {$parameters->id}";
+
+        try {
+            $statement = $this->pdo->prepare($sql);
+            $statement->execute();
+            $id = $this->pdo->lastInsertId();
+            return $id;
         } catch (\Exception $e) {
             return false;
         }

@@ -5,6 +5,14 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .nav {
+            margin-bottom: 2rem;
+            font-size: 20px;
+            text-align: right;
+        }
         .container {
             display: flex;
             flex-direction: column;
@@ -20,7 +28,7 @@
             padding: 0;
         }
         .employee {
-            margin: .5rem 0;
+            margin: 1rem 0;
         }
         .form-container {
             margin: 1rem 0;

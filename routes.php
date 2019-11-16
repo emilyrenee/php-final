@@ -1,12 +1,8 @@
 <?php
 
-$router->get('', 'EmployeeController@index'); // return all employees
-$router->get('create', 'EmployeeController@viewCreateEmployee'); 
-$router->post('create', 'EmployeeController@createEmployee');
-$router->get('view', 'EmployeeController@employee');
-// $router->get('/employee/{$id}/create', function() {
-//     //
-// });
-// $router->get('/employee/{$id}/update', function() {
-//     //
-// });
+$router->get('', 'EmployeeController@viewAll');
+$router->get('view', 'EmployeeController@viewEmployee');
+$router->get('create', 'EmployeeController@viewCreate');
+$router->post('create', 'EmployeeController@create');
+$router->get('update', 'EmployeeController@viewEdit');
+$router->post('update', 'EmployeeController@update');

@@ -16,6 +16,7 @@ function view($name, $data = [])
     extract($data);
     return require "/var/www/resources/views/{$name}.php";
 }
+
 /**
  * Redirect to a new page.
  *
@@ -28,30 +29,22 @@ function redirect($path)
 
 class EmployeeController
 {
-    public function index()
+    public function employees()
     {
         $employees = Employee::findAll();
-        $view = view('index', compact('employees'));
-
-        return $view;
+        return $employees;
     }
 
     public function employee()
     {
         $id = Request::params();
+        // var_dump($id);
         $employee = Employee::find($id);
-        $view = view('employee', compact('employee'));
 
-        return $view;
+        return $employee;
     }
 
-    public function viewCreateEmployee()
-    {
-        $view = view('form');
-        return $view;
-    }
-
-    public function createEmployee()
+    public function create()
     {
         $name = $_POST['name'];
         $address = $_POST['address'];
@@ -61,8 +54,55 @@ class EmployeeController
         $data->name = $name;
         $data->address = $address;
 
-        $employee = Employee::save($data);
+        $id = Employee::save($data);
 
-        // TODO: return $redirect;
+        return redirect('view?id=' . $id);
+    }
+
+    public function update()
+    {
+        $name = $_POST['name'];
+        $address = $_POST['address'];
+        $id = $_POST['id'];
+
+        // var_dump($id);
+
+        $data = new \stdClass();
+
+        $data->name = $name;
+        $data->address = $address;
+        $data->id = $id;
+
+        $id = Employee::update($data);
+
+        // var_dump($id);
+        // update query fails, return false instead of id
+        return redirect('view?id=' . $id);
+    }
+
+    // view methods
+    public function viewAll()
+    {
+        $employees = $this->employees();
+        return view('index', compact('employees'));
+    }
+
+    public function viewEmployee()
+    {
+
+        $employee = $this->employee();
+        return view('employee', compact('employee'));
+    }
+
+
+    public function viewCreate()
+    {
+        return view('create');
+    }
+
+    public function viewEdit()
+    {
+        $employee = $this->employee();
+        return view('edit', compact('employee'));
     }
 }

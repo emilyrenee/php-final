@@ -10,9 +10,7 @@ class Employee
     protected $pdo;
 
     public function __construct($pdo)
-    {
-
-    }
+    { }
 
     public static function find($id)
     {
@@ -23,7 +21,7 @@ class Employee
     }
 
     public static function findAll()
-    {   
+    {
         $employees = App::get('database')->selectAll('employees');
 
         return $employees;
@@ -45,19 +43,20 @@ class Employee
         // return array of errors
     }
 
-    public function create()
+    public function update($data)
     {
-        //
-    }
+        // // TODO: validate 
+        // var_dump($data);
+        $id = App::get('database')->update('employees', [
 
-    public function read()
-    {
-        //
-    }
-
-    public function update()
-    {
-        //
+            'name' => $data->name,
+            'address' => $data->address,
+            'id' => $data->id
+        ]);
+        if (!$id) {
+            return false; // insert failed
+        }
+        return $id;
     }
 
     public function delete()
@@ -74,12 +73,14 @@ class Employee
             // return false if not valid
             return false;
         } else {
-            $success = App::get('database')->insert('employees', [
+            $id = App::get('database')->insert('employees', [
                 'name' => $data->name,
                 'address' => $data->address
             ]);
-            // returns true or false;
-            return $success;
+            if (!$id) {
+                return false; // insert failed
+            }
+            return $id;
         }
     }
 

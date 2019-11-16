@@ -1,19 +1,21 @@
 <?php require('/var/www/resources/views/partials/header.php'); ?>
 
 <div class="container">
-    <h1>Create a New Employee</h1>
+    <a href="/" class="nav">Cancel</a>
+    <h1>Update Employee</h1>
     <hr />
 
     <div class="form-container">
-        <form action="/create" method="post">
+        <form action="/update?id=<?= $employee[0]->id ?>" method="post">
             <div class="form-item">
                 <label for="name">Name</label>
-                <input type="text" name="name" id="">
+                <input type="text" name="name" placeholder="<?= $employee[0]->name ?>">
             </div>
             <div class="form-item">
                 <label for="address">Address</label>
-                <input type="text" name="address" id="">
+                <input type="text" name="address" placeholder="<?= $employee[0]->address ?>">
             </div>
+            <input type="hidden" name="id" value="<?= $employee[0]->id ?>">
             <div class="form-item">
                 <input type="submit" value="Submit">
             </div>
