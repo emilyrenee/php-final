@@ -45,8 +45,7 @@ class Employee
 
     public function update($data)
     {
-        // // TODO: validate 
-        // var_dump($data);
+        // // TODO: validate ;
         $id = App::get('database')->update('employees', [
 
             'name' => $data->name,

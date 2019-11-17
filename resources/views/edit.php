@@ -9,11 +9,11 @@
         <form action="/update?id=<?= $employee[0]->id ?>" method="post">
             <div class="form-item">
                 <label for="name">Name</label>
-                <input type="text" name="name" placeholder="<?= $employee[0]->name ?>">
+                <input type="text" name="name" value="<?= $employee[0]->name ?>">
             </div>
             <div class="form-item">
                 <label for="address">Address</label>
-                <input type="text" name="address" placeholder="<?= $employee[0]->address ?>">
+                <input type="text" name="address" value="<?= $employee[0]->address ?>">
             </div>
             <input type="hidden" name="id" value="<?= $employee[0]->id ?>">
             <div class="form-item">

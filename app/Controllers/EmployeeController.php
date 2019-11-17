@@ -38,7 +38,6 @@ class EmployeeController
     public function employee()
     {
         $id = Request::params();
-        // var_dump($id);
         $employee = Employee::find($id);
 
         return $employee;
@@ -65,8 +64,6 @@ class EmployeeController
         $address = $_POST['address'];
         $id = $_POST['id'];
 
-        // var_dump($id);
-
         $data = new \stdClass();
 
         $data->name = $name;
@@ -75,8 +72,7 @@ class EmployeeController
 
         $id = Employee::update($data);
 
-        // var_dump($id);
-        // update query fails, return false instead of id
+        // update query fails, returns false instead of id
         return redirect('view?id=' . $id);
     }
 
@@ -91,7 +87,7 @@ class EmployeeController
     {
 
         $employee = $this->employee();
-        return view('employee', compact('employee'));
+        return view('view', compact('employee'));
     }
 
 

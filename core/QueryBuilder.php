@@ -77,16 +77,14 @@ class QueryBuilder
      */
     public function update($table, $parameters)
     {
-        // UPDATE [LOW_PRIORITY] [IGNORE] table_references
-        // SET assignment_list
-        // [WHERE where_condition]
-
-        $sql = "update {$table} set name = {$parameters->name}, address = {$parameters->address} where id= {$parameters->id}";
+        $name = $parameters['name'];
+        $address = $parameters['address'];
+        $id = $parameters['id'];
+        $sql = 'update ' . $table . ' set name = "' . $name . '", address = "' . $address . '" where id = ' . $id;
 
         try {
             $statement = $this->pdo->prepare($sql);
             $statement->execute();
-            $id = $this->pdo->lastInsertId();
             return $id;
         } catch (\Exception $e) {
             return false;
