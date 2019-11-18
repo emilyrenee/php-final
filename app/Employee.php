@@ -6,6 +6,8 @@ use App\Core\App;
 
 class Employee
 {
+    public $error_messages = [];
+
     public static function find($id)
     {
 
@@ -17,62 +19,98 @@ class Employee
         return App::get('database')->selectAll('employees');
     }
 
-    // TODO: need to check id, update, delete
     public function validate(object $data)
     {
         $valid = false;
 
         if ($data && $data->name && $data->address) {
             $valid = true;
-        };
+        }
 
         return $valid;
     }
 
-    public function errors()
+    public function errors(object $data)
     {
-        // TODO:
-        // return array of errors
+        $errors = [];
+
+        if (!$data->name) {
+            $error = 'Name must be provided.';
+            array_push($errors, $error);
+        }
+
+        if (!$data->address) {
+            $error = 'Address must be provided.';
+            array_push($errors, $error);
+        }
+
+        $this->error_messages = $errors;
+
+        var_dump($this->error_messages);
+
+        return $errors;
     }
+
+    public function getErrors()
+    {
+        return $this->error_messages;
+    }
+
 
     public function create(object $data)
     {
-        $isValid = self::validate($data);
+        $isValid = $this->validate($data);
 
         if (!$isValid) {
-            // TODO: return error
+            $this->errors($data);
             return false;
         } else {
-            $id = App::get('database')->insert('employees', [
+            $data = [
                 'name' => $data->name,
                 'address' => $data->address
-            ]);
-            if (!$id) {
-                return false; // insert failed
-            }
-            return $id;
+            ];
+
+            return $this->save($data, 'insert');
         }
     }
 
     public function update(object $data)
     {
-        $isValid = self::validate($data);
+        $isValid = $this->validate($data);
 
         if (!$isValid) {
-            // TODO: return error
+            $this->errors($data);
             return false;
         } else {
-            $id = App::get('database')->update('employees', [
-
+            $data = [
                 'name' => $data->name,
                 'address' => $data->address,
                 'id' => $data->id
-            ]);
-            if (!$id) {
-                return false; // insert failed
-            }
-            return $id;
+            ];
+
+            return $this->save($data, 'update');
         }
+    }
+
+    private function save($data, $method)
+    {
+        $id = '';
+
+        switch ($method) {
+            case 'create':
+                $id = App::get('database')->insert('employees', $data);
+                break;
+            case 'update':
+                $id = App::get('database')->update('employees', $data);
+                break;
+        }
+
+        var_dump($id);
+
+        if (!$id) {
+            return false; // insert failed
+        }
+        return $id;
     }
 
     public function delete(object $data)

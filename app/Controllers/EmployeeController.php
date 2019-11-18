@@ -14,8 +14,6 @@ function view(string $name, array $data = [])
 
 function redirect(string $path)
 {
-    // var_dump('calling redriect');
-    // ERR_INVALID_REDIRECT
     header("Location: /{$path}");
 }
 
@@ -57,10 +55,17 @@ class EmployeeController
         $data->name = $name;
         $data->address = $address;
         $data->id = $id;
+        $employee = new Employee();
+        $id = $employee->update($data);
 
-        $id = Employee::update($data);
-
-        return redirect('view?id=' . $id);
+        if ($id) {
+            return redirect('view?id=' . $id);
+        } else {
+            // TODO: -- pass errors to view
+            // var_dump($id);
+            var_dump($employee->getErrors());
+            // return redirect('view?id=' . $id); // but with errros
+        }
     }
 
     public function delete()
@@ -69,7 +74,6 @@ class EmployeeController
         $data = new \stdClass();
         $data->id = $id;
         Employee::delete($data);
-        // var_dump($id);
         return redirect('');
     }
 
