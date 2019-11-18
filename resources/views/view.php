@@ -11,6 +11,11 @@
     </div>
     <div>
         <a href="update/?id=<?= $employee[0]->id ?>">Edit</a>
-        <a href="#">Remove</a>
+        <form action="/delete?id=<?= $employee[0]->id ?>" method="post">
+            <div class="form-item">
+                <input type="hidden" name="id" value="<?= $employee[0]->id ?>">
+                <input type="submit" value="Remove">
+            </div>
+        </form>
     </div>
 </div>

@@ -12,46 +12,27 @@ class QueryBuilder
      * @var PDO
      */
     protected $pdo;
-    /**
-     * Create a new QueryBuilder instance.
-     *
-     * @param PDO $pdo
-     */
-    public function __construct($pdo)
+
+    public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }
-    /**
-     * Select all records from a database table.
-     *
-     * @param string $table
-     */
-    public function selectAll($table)
+
+    public function selectAll(string $table)
     {
         $statement = $this->pdo->prepare("select * from {$table}");
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_CLASS);
     }
 
-    /**
-     * Select all records from a database table.
-     *
-     * @param string $table
-     */
-    public function selectById($table, $id)
+    public function selectById(string $table, int $id)
     {
         $statement = $this->pdo->prepare("select * from {$table} where id= {$id}");
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_CLASS);
     }
 
-    /**
-     * Insert a record into a table.
-     *
-     * @param  string $table
-     * @param  array  $parameters
-     */
-    public function insert($table, $parameters)
+    public function insert(string $table, array $parameters)
     {
         $sql = sprintf(
             'insert into %s (%s) values (%s)',
@@ -69,18 +50,27 @@ class QueryBuilder
         }
     }
 
-    /**
-     * Updates a record in a table.
-     *
-     * @param  string $table
-     * @param  array  $parameters
-     */
-    public function update($table, $parameters)
+    public function update(string $table, array $parameters)
     {
         $name = $parameters['name'];
         $address = $parameters['address'];
         $id = $parameters['id'];
         $sql = 'update ' . $table . ' set name = "' . $name . '", address = "' . $address . '" where id = ' . $id;
+
+        try {
+            $statement = $this->pdo->prepare($sql);
+            $statement->execute();
+            return $id;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    public function delete(string $table, array $parameters)
+    {
+        $id = $parameters['id'];
+        // var_dump($id);
+        $sql = "delete from {$table} where id= {$id}";
 
         try {
             $statement = $this->pdo->prepare($sql);

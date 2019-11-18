@@ -5,25 +5,17 @@ namespace App\Controllers;
 use App\Employee;
 use App\Core\Request;
 
-/**
- * Require a view.
- *
- * @param  string $name
- * @param  array  $data
- */
-function view($name, $data = [])
+// helpers
+function view(string $name, array $data = [])
 {
     extract($data);
     return require "/var/www/resources/views/{$name}.php";
 }
 
-/**
- * Redirect to a new page.
- *
- * @param  string $path
- */
-function redirect($path)
+function redirect(string $path)
 {
+    // var_dump('calling redriect');
+    // ERR_INVALID_REDIRECT
     header("Location: /{$path}");
 }
 
@@ -47,13 +39,11 @@ class EmployeeController
     {
         $name = $_POST['name'];
         $address = $_POST['address'];
-
         $data = new \stdClass();
-
         $data->name = $name;
         $data->address = $address;
 
-        $id = Employee::save($data);
+        $id = Employee::create($data);
 
         return redirect('view?id=' . $id);
     }
@@ -63,17 +53,24 @@ class EmployeeController
         $name = $_POST['name'];
         $address = $_POST['address'];
         $id = $_POST['id'];
-
         $data = new \stdClass();
-
         $data->name = $name;
         $data->address = $address;
         $data->id = $id;
 
         $id = Employee::update($data);
 
-        // update query fails, returns false instead of id
         return redirect('view?id=' . $id);
+    }
+
+    public function delete()
+    {
+        $id = $_POST['id'];
+        $data = new \stdClass();
+        $data->id = $id;
+        Employee::delete($data);
+        // var_dump($id);
+        return redirect('');
     }
 
     // view methods
