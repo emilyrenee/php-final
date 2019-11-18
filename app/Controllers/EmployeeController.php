@@ -22,29 +22,26 @@ class EmployeeController
     
     public function employees()
     {
-        $employees = Employee::findAll();
-        return $employees;
+        return Employee::findAll();
     }
 
     public function employee()
     {
         $id = Request::params();
-        $employee = Employee::find($id);
-
-        return $employee;
+        return Employee::find($id);
     }
 
     public function create()
     {
-        $name = $_POST['name'];
-        $address = $_POST['address'];
         $data = new \stdClass();
-        $data->name = $name;
-        $data->address = $address;
+        $data->name = $_POST['name'];
+        $data->address = $_POST['address'];
+
         $employee = new Employee();
-        $id = $employee->create($data);
-        if ($id) {
-            return redirect('view?id=' . $id);
+        $success = $employee->create($data);
+
+        if ($success) {
+            return redirect('');
         } else {
             $errors = $employee->getErrors();
             return view('create', compact(['errors']));
@@ -54,18 +51,16 @@ class EmployeeController
 
     public function update()
     {
-        $name = $_POST['name'];
-        $address = $_POST['address'];
-        $id = $_POST['id'];
         $data = new \stdClass();
-        $data->name = $name;
-        $data->address = $address;
-        $data->id = $id;
-        $employee = new Employee();
-        $id = $employee->update($data);
+        $data->name = $_POST['name'];;
+        $data->address = $_POST['address'];
+        $data->id = $_POST['id'];
 
-        if ($id) {
-            return redirect('view?id=' . $id);
+        $employee = new Employee();
+        $success = $employee->update($data);
+
+        if ($success) {
+            return redirect('view?id=' . $_POST['id']);
         } else {
             $errors = $employee->getErrors();
             $employee = $this->employee();
@@ -75,10 +70,12 @@ class EmployeeController
 
     public function delete()
     {
-        $id = $_POST['id'];
         $data = new \stdClass();
-        $data->id = $id;
-        Employee::delete($data);
+        $data->id = $_POST['id'];
+
+        $employee = new Employee();
+
+        $id = $employee->delete($data);
         return redirect('');
     }
 

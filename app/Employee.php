@@ -90,35 +90,34 @@ class Employee
         }
     }
 
+    public function delete(object $data)
+    {
+        $data = [
+            'id' => $data->id
+        ];
+
+        return $this->save($data, 'delete');
+    }
+
     private function save($data, $method)
     {
-        $id = '';
+        $success;
 
         switch ($method) {
             case 'insert':
-                $id = App::get('database')->insert('employees', $data);
+                $success = App::get('database')->insert('employees', $data);
                 break;
             case 'update':
-                $id = App::get('database')->update('employees', $data);
+                $success = App::get('database')->update('employees', $data);
+                break;
+            case 'delete':
+                $success = App::get('database')->delete('employees', $data);
                 break;
         }
-
-
-        if (!$id) {
+        
+        if (!$success) {
             return false; // insert failed
         }
-
-        return $id;
-    }
-
-    public function delete(object $data)
-    {
-        $id = App::get('database')->delete('employees', [
-            'id' => $data->id
-        ]);
-        if (!$id) {
-            return false; // insert failed
-        }
-        return $id;
+        return true;
     }
 }
