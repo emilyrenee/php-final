@@ -96,12 +96,12 @@ class Employee
             'id' => $data->id
         ];
 
-        return $this->save($data, 'delete');
+        return $this->destroy($data);
     }
 
-    private function save($data, $method)
+    private function save(array $data, string $method)
     {
-        $success;
+        $success = false;
 
         switch ($method) {
             case 'insert':
@@ -114,10 +114,12 @@ class Employee
                 $success = App::get('database')->delete('employees', $data);
                 break;
         }
-        
-        if (!$success) {
-            return false; // insert failed
-        }
-        return true;
+
+        return $success; 
+    }
+
+    private function destroy(array $data)
+    {
+        return App::get('database')->delete('employees', $data);
     }
 }

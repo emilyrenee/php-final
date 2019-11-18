@@ -69,7 +69,6 @@ class QueryBuilder
     public function delete(string $table, array $parameters)
     {
         $id = $parameters['id'];
-        // var_dump($id);
         $sql = "delete from {$table} where id= {$id}";
 
         try {
