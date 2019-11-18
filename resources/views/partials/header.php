@@ -33,7 +33,13 @@
         .form-container {
             margin: 1rem 0;
         }
-        form {
+        .errors {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            color: red;
+        }
+        .create-form, .edit-form {
             flex-direction: column;
             display: flex;
             min-height: 200px;
@@ -50,6 +56,9 @@
         }
         input {
             max-width: 200px;
+        }
+        .delete-form {
+            margin-top: .5rem;
         }
     </style>
 </head>

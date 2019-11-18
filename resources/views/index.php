@@ -7,12 +7,11 @@
 
     <?php foreach ($employees as $employee) : ?>
         <div class="employee">
-            <a href="view?id=<?= $employee->id ?>">
-                <h2><?= $employee->name; ?></h2>
-            </a>
+            <h2><?= $employee->name; ?></h2>
             <span><?= $employee->address; ?></span>
             <div style="margin-top: .5rem">
                 <a href="update?id=<?= $employee->id ?>">Edit</a>
+                <a href="view?id=<?= $employee->id ?>">View</a>
             </div>
         </div>
     <?php endforeach; ?>

@@ -6,7 +6,18 @@
     <hr />
 
     <div class="form-container">
-        <form action="/create" method="post">
+        <?php if ($errors) : ?>
+            <div>
+                <ul class="errors">
+                    <?php foreach ($errors as $error) : ?>
+                        <li>
+                            <?= $error ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+        <form action="/create" method="post" class="create-form">
             <div class="form-item">
                 <label for="name">Name</label>
                 <input type="text" name="name" id="">

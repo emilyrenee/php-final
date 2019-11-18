@@ -6,7 +6,18 @@
     <hr />
 
     <div class="form-container">
-        <form action="/update?id=<?= $employee[0]->id ?>" method="post">
+        <?php if ($errors) : ?>
+            <div>
+                <ul class="errors">
+                    <?php foreach ($errors as $error) : ?>
+                        <li>
+                            <?= $error ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+        <form action="/update?id=<?= $employee[0]->id ?>" method="post" class="edit-form">
             <div class="form-item">
                 <label for="name">Name</label>
                 <input type="text" name="name" value="<?= $employee[0]->name ?>">

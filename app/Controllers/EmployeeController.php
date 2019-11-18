@@ -19,6 +19,7 @@ function redirect(string $path)
 
 class EmployeeController
 {
+    
     public function employees()
     {
         $employees = Employee::findAll();
@@ -40,10 +41,15 @@ class EmployeeController
         $data = new \stdClass();
         $data->name = $name;
         $data->address = $address;
-
-        $id = Employee::create($data);
-
-        return redirect('view?id=' . $id);
+        $employee = new Employee();
+        $id = $employee->create($data);
+        if ($id) {
+            return redirect('view?id=' . $id);
+        } else {
+            $errors = $employee->getErrors();
+            return view('create', compact(['errors']));
+        }
+        
     }
 
     public function update()
@@ -61,10 +67,9 @@ class EmployeeController
         if ($id) {
             return redirect('view?id=' . $id);
         } else {
-            // TODO: -- pass errors to view
-            // var_dump($id);
-            var_dump($employee->getErrors());
-            // return redirect('view?id=' . $id); // but with errros
+            $errors = $employee->getErrors();
+            $employee = $this->employee();
+            return view('edit', compact(['employee', 'errors']));
         }
     }
 

@@ -46,8 +46,6 @@ class Employee
 
         $this->error_messages = $errors;
 
-        var_dump($this->error_messages);
-
         return $errors;
     }
 
@@ -97,7 +95,7 @@ class Employee
         $id = '';
 
         switch ($method) {
-            case 'create':
+            case 'insert':
                 $id = App::get('database')->insert('employees', $data);
                 break;
             case 'update':
@@ -105,11 +103,11 @@ class Employee
                 break;
         }
 
-        var_dump($id);
 
         if (!$id) {
             return false; // insert failed
         }
+
         return $id;
     }
 
