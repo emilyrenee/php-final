@@ -3,5 +3,12 @@
         "classmap": [
             "./"   
         ]
+    },
+    "require-dev": {
+        "mockery/mockery": "^1.2"
+    },
+    "require": {
+        "phpunit/phpunit": "^8.4",
+        "fzaninotto/faker": "^1.9"
     }
 }
