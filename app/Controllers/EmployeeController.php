@@ -3,7 +3,9 @@
 namespace App\Controllers;
 
 use App\Employee;
+use App\Core\App;
 use App\Core\Request;
+use App\Repositories\EmployeeRepository;
 
 // helpers
 function view(string $name, array $data = [])
@@ -19,16 +21,24 @@ function redirect(string $path)
 
 class EmployeeController
 {
-    
+    public $employee;
+
+    public function __construct()
+    {
+        $this->employee = new Employee(
+            new EmployeeRepository(App::get('database'))
+        );
+    }
+
     public function employees()
     {
-        return Employee::findAll();
+        return $this->employee->findAll();
     }
 
     public function employee()
     {
         $id = Request::params();
-        return Employee::find($id);
+        return $this->employee->find($id);
     }
 
     public function create()
@@ -36,17 +46,14 @@ class EmployeeController
         $data = new \stdClass();
         $data->name = $_POST['name'];
         $data->address = $_POST['address'];
-
-        $employee = new Employee();
-        $success = $employee->create($data);
+        $success = $this->employee->create($data);
 
         if ($success) {
             return redirect('');
         } else {
-            $errors = $employee->getErrors();
+            $errors = $this->employee->getErrors();
             return view('create', compact(['errors']));
         }
-        
     }
 
     public function update()
@@ -55,14 +62,12 @@ class EmployeeController
         $data->name = $_POST['name'];;
         $data->address = $_POST['address'];
         $data->id = $_POST['id'];
-
-        $employee = new Employee();
-        $success = $employee->update($data);
+        $success = $this->employee->update($data);
 
         if ($success) {
             return redirect('view?id=' . $_POST['id']);
         } else {
-            $errors = $employee->getErrors();
+            $errors = $this->employee->getErrors();
             $employee = $this->employee();
             return view('edit', compact(['employee', 'errors']));
         }
@@ -72,10 +77,7 @@ class EmployeeController
     {
         $data = new \stdClass();
         $data->id = $_POST['id'];
-
-        $employee = new Employee();
-
-        $id = $employee->delete($data);
+        $this->employee->delete($data);
         return redirect('');
     }
 

@@ -3,54 +3,99 @@
 namespace App\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Mockery;
 use Faker;
 use App\Employee;
 
 use App\Core\App;
-use App\Core\{QueryBuilder, Connection};
 
 
 class EmployeeTest extends TestCase
 {
     public $faker;
     public $employee;
+    /** EmployeeRepositoryInterface|MockInterface $employeeRepo */
+    public $employeeRepo;
     public $name = 'Tester Test';
     public $address = 'Test Street';
-    public $id;
-    public $rowCount;
 
     public function setUp(): void
     {
         // db connection
         App::bind('config', require '../config.php');
-        App::bind('database', new QueryBuilder(
-            Connection::makeConnection(App::get('config')['database'])
-        ));
+        $this->employeeRepo = Mockery::mock('App\Interfaces\EmployeeRepositoryInterface');
 
         // fixture object
         $this->faker = Faker\Factory::create();
         $this->faker->name = $this->name;
         $this->faker->address = $this->address;
-
-        $this->employee = new Employee();
-        $this->employee->save([
-            'name' => $this->faker->name,
-            'address' => $this->faker->address
-        ], 'insert');
-
-        $this->id = App::get('database')->lastInsert();
-        $this->rowCount = (count(App::get('database')->selectAll('employees')));
     }
 
-    public function tearDown(): void
+    public function testFind()
     {
-        $this->employee->destroy([
+        $this->employeeRepo->shouldReceive('find')->with(2)->once()->andReturn(true);
+        $this->employee = new Employee($this->employeeRepo);
+        $result = $this->employee->find(2);
+        $this->assertEquals(true, $result);
+    }
+
+    public function testCreate()
+    {
+        $data = [
+            'name' => $this->faker->name,
+            'address' => $this->faker->address
+        ];
+        $this->employeeRepo->shouldReceive('create')->with($data)->once()->andReturn(true);
+        $this->employee = new Employee($this->employeeRepo);
+        $result = $this->employee->create(
+            json_decode(
+                json_encode(
+                    $data
+                )
+            )
+        );
+        $this->assertEquals(true, $result);
+    }
+
+    public function testUpdate()
+    {
+        $data =  [
+            'name' => $this->faker->name,
+            'address' => $this->faker->address,
+            'id' => 2
+        ];
+        $this->employeeRepo->shouldReceive('update')->with($data)->once()->andReturn(true);
+        $this->employee = new Employee($this->employeeRepo);
+        $result = $this->employee->update(
+            json_decode(
+                json_encode(
+                    $data
+                )
+            )
+        );
+        $this->assertEquals(true, $result);
+    }
+
+    public function testDelete()
+    {
+        $data = [
             'id' => $this->id
-        ]);
+        ];
+        $this->employeeRepo->shouldReceive('delete')->with($data)->once()->andReturn(true);
+        $this->employee = new Employee($this->employeeRepo);
+        $result = $this->employee->delete(
+            json_decode(
+                json_encode(
+                    $data
+                )
+            )
+        );
+        $this->assertEquals(true, $result);
     }
 
     public function testValidate()
     {
+        $this->employee = new Employee($this->employeeRepo);
         // empty
         $this->faker->name = null;
         $this->faker->address = null;
@@ -82,48 +127,5 @@ class EmployeeTest extends TestCase
         $this->faker->address = $this->address;
         $valid = $this->employee->validate($this->faker);
         $this->assertEquals(true, $valid);
-    }
-
-    // save - insert
-    public function testInsert()
-    {
-        $currentCount = (count(App::get('database')->selectAll('employees')));
-        $method = 'insert';
-        $data = [
-            'name' => $this->faker->name,
-            'address' => $this->faker->address
-        ];
-        $success = $this->employee->save($data, $method);
-        $newCount = (count(App::get('database')->selectAll('employees')));
-
-        $this->assertEquals($currentCount+= 1, $newCount); // 1 added
-        $this->assertEquals(true, $success);
-    }
-
-    // save - update
-    public function testUpdate()
-    {
-        $method = 'update';
-        $data = [
-            'name' => $this->name,
-            'address' => $this->address,
-            'id' => $this->id
-        ];
-        $success = $this->employee->save($data, $method);
-
-        $this->assertEquals(true, $success);
-    }
-
-    public function testDestory()
-    {
-        $currentCount = (count(App::get('database')->selectAll('employees')));
-        $data = [
-            'id' => $this->id
-        ];
-        $success = $this->employee->destroy($data);
-        $newCount = (count(App::get('database')->selectAll('employees')));
-
-        $this->assertEquals($currentCount-= 1, $newCount); // 1 rmvd
-        $this->assertEquals(true, $success);
     }
 }

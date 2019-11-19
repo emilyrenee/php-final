@@ -2,21 +2,27 @@
 
 namespace App;
 
-use App\Core\App;
+use App\Interfaces\EmployeeRepositoryInterface;
 
 class Employee
 {
     public $error_messages = [];
+    protected $employeeStore;
 
-    public static function find($id)
+    public function __construct(EmployeeRepositoryInterface $employee)
     {
-
-        return App::get('database')->selectById('employees', $id);
+        $this->employeeStore = $employee;
     }
 
-    public static function findAll()
+    public function find($id)
     {
-        return App::get('database')->selectAll('employees');
+
+        return $this->employeeStore->find($id);
+    }
+
+    public function findAll()
+    {
+        return $this->employeeStore->findAll();
     }
 
     public function validate(object $data)
@@ -68,7 +74,7 @@ class Employee
                 'address' => $data->address
             ];
 
-            return $this->save($data, 'insert');
+            return $this->employeeStore->create($data);
         }
     }
 
@@ -86,7 +92,7 @@ class Employee
                 'id' => $data->id
             ];
 
-            return $this->save($data, 'update');
+            return $this->employeeStore->update($data);
         }
     }
 
@@ -96,35 +102,6 @@ class Employee
             'id' => $data->id
         ];
 
-        return $this->destroy($data);
-    }
-
-    public function save(array $data, string $method)
-    {
-        $id;
-
-        switch ($method) {
-            case 'insert':
-                $id = App::get('database')->insert('employees', $data);
-                break;
-            case 'update':
-                $id = App::get('database')->update('employees', $data);
-                break;
-        }
-
-        if ($id) {
-            return true;
-        }
-        return false;
-    }
-
-    public function destroy(array $data)
-    {
-        $id = App::get('database')->delete('employees', $data);
-
-        if ($id) {
-            return true;
-        }
-        return false;
+        return $this->employeeStore->delete($data);
     }
 }
