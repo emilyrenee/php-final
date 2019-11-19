@@ -4,7 +4,8 @@ namespace App\Repositories;
 
 use App\Interfaces\EmployeeRepositoryInterface;
 
-class EmployeeRepository implements EmployeeRepositoryInterface {
+class EmployeeRepository implements EmployeeRepositoryInterface
+{
     private $db;
 
     public function __construct($db_conn)
@@ -24,27 +25,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface {
 
     public function create($data)
     {
-        return $this->save($data, 'insert');
-    }
-
-    public function update($data)
-    {
-        return $this->save($data, 'update');
-    }
-
-
-    public function save($data, $method)
-    {
-        $id;
-
-        switch ($method) {
-            case 'insert':
-                $id = $this->db->insert('employees', $data);
-                break;
-            case 'update':
-                $id = $this->db->update('employees', $data);
-                break;
-        }
+        $id = $this->db->insert('employees', $data);
 
         if ($id) {
             return true;
@@ -52,9 +33,13 @@ class EmployeeRepository implements EmployeeRepositoryInterface {
         return false;
     }
 
-    public function delete($data)
+    public function update($data)
     {
-        return $this->destroy($data);
+        $id = $this->db->update('employees', $data);
+        if ($id) {
+            return true;
+        }
+        return false;
     }
 
     public function destroy(array $data)

@@ -74,7 +74,7 @@ class Employee
                 'address' => $data->address
             ];
 
-            return $this->employeeStore->create($data);
+            return $this->employeeStore->create($data, 'insert');
         }
     }
 
@@ -92,7 +92,19 @@ class Employee
                 'id' => $data->id
             ];
 
-            return $this->employeeStore->update($data);
+            return $this->employeeStore->update($data, 'update');
+        }
+    }
+
+    public function save(object $data, string $method)
+    {
+        switch ($method) {
+            case 'insert':
+                return $this->create($data);
+                break;
+            case 'update':
+                return $this->update($data);
+                break;
         }
     }
 
@@ -102,6 +114,12 @@ class Employee
             'id' => $data->id
         ];
 
-        return $this->employeeStore->delete($data);
+        return $this->destroy($data);
+
+    }
+
+    public function destroy(array $data)
+    {
+        return $this->employeeStore->destroy($data);
     }
 }

@@ -46,7 +46,7 @@ class EmployeeController
         $data = new \stdClass();
         $data->name = $_POST['name'];
         $data->address = $_POST['address'];
-        $success = $this->employee->create($data);
+        $success = $this->employee->save($data, 'insert');
 
         if ($success) {
             return redirect('');
@@ -62,7 +62,7 @@ class EmployeeController
         $data->name = $_POST['name'];;
         $data->address = $_POST['address'];
         $data->id = $_POST['id'];
-        $success = $this->employee->update($data);
+        $success = $this->employee->save($data, 'update');
 
         if ($success) {
             return redirect('view?id=' . $_POST['id']);
