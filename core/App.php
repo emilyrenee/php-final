@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Core;
+
 use Exception;
 
-class App {
+class App
+{
     // the registered key, values
-    protected static $registry = [];
+    private static $registry = [];
 
     // bind a key, value to the container
     public static function bind($key, $value)
@@ -13,6 +15,10 @@ class App {
         static::$registry[$key] = $value;
     }
 
+    public static function getRegistry()
+    {
+        return static::$registry;
+    }
     // get a key if exists or throw exception
     public static function get($key)
     {

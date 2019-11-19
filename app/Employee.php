@@ -99,27 +99,32 @@ class Employee
         return $this->destroy($data);
     }
 
-    private function save(array $data, string $method)
+    public function save(array $data, string $method)
     {
-        $success = false;
+        $id;
 
         switch ($method) {
             case 'insert':
-                $success = App::get('database')->insert('employees', $data);
+                $id = App::get('database')->insert('employees', $data);
                 break;
             case 'update':
-                $success = App::get('database')->update('employees', $data);
-                break;
-            case 'delete':
-                $success = App::get('database')->delete('employees', $data);
+                $id = App::get('database')->update('employees', $data);
                 break;
         }
 
-        return $success; 
+        if ($id) {
+            return true;
+        }
+        return false;
     }
 
-    private function destroy(array $data)
+    public function destroy(array $data)
     {
-        return App::get('database')->delete('employees', $data);
+        $id = App::get('database')->delete('employees', $data);
+
+        if ($id) {
+            return true;
+        }
+        return false;
     }
 }

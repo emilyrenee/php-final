@@ -18,6 +18,11 @@ class QueryBuilder
         $this->pdo = $pdo;
     }
 
+    public function lastInsert()
+    {
+        return $this->pdo->lastInsertId();
+    }
+
     public function selectAll(string $table)
     {
         $statement = $this->pdo->prepare("select * from {$table}");
