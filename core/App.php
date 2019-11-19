@@ -4,22 +4,46 @@ namespace App\Core;
 
 use Exception;
 
+/**
+ * The core App Class.
+ */
 class App
 {
-    // the registered key, values
+    /** @type array $registry Contains array of key, values */
     private static $registry = [];
 
-    // bind a key, value to the container
+    /**
+     * Binds a key, value pair to the App's registry
+     * 
+     * @param string $key
+     * @param mixed $value
+     * 
+     * @return void
+     */
     public static function bind($key, $value)
     {
         static::$registry[$key] = $value;
     }
 
+    /**
+     * Returns the registry array
+     * 
+     * @return array
+     */
     public static function getRegistry()
     {
         return static::$registry;
     }
-    // get a key if exists or throw exception
+    
+    /**
+     * Returns an existing registry key's value
+     * 
+     * @param string $key
+     * 
+     * @throws Exception if key does not exist 
+     * 
+     * @return mixed
+     */
     public static function get($key)
     {
         if (!array_key_exists($key, static::$registry)) {

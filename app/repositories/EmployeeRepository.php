@@ -42,6 +42,10 @@ class EmployeeRepository implements EmployeeRepositoryInterface
         return false;
     }
 
+    /**
+     * @param array $data
+     * @return bool
+     */
     public function destroy(array $data)
     {
         $id = $this->db->delete('employees', $data);

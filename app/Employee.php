@@ -6,7 +6,9 @@ use App\Interfaces\EmployeeRepositoryInterface;
 
 class Employee
 {
+    /** @type array $error_message Contains array of known validation errors */
     public $error_messages = [];
+    /** // TODO: @type mixed $employeeStore Employee Instance */
     protected $employeeStore;
 
     public function __construct(EmployeeRepositoryInterface $employee)
@@ -14,17 +16,33 @@ class Employee
         $this->employeeStore = $employee;
     }
 
+    /**
+     * Returns array containing employee matching $id
+     * 
+     * @param int $id
+     * @return array
+     */
     public function find($id)
     {
-
         return $this->employeeStore->find($id);
     }
 
+    /**
+     * Returns array containing all employees
+     * 
+     * @return array
+     */
     public function findAll()
     {
         return $this->employeeStore->findAll();
     }
 
+    /**
+     * Determines if data object is valid
+     * 
+     * @param object $data
+     * @return bool
+     */
     public function validate(object $data)
     {
         $valid = false;
@@ -36,6 +54,13 @@ class Employee
         return $valid;
     }
 
+    /**
+     * Sets $error_messages to array that contains
+     * the validation errors for invalid data object
+     * 
+     * @param object $data
+     * @return array
+     */
     public function errors(object $data)
     {
         $errors = [];
@@ -55,12 +80,25 @@ class Employee
         return $errors;
     }
 
+    /**
+     * Returns array containing all validation errors
+     * 
+     * @return array
+     */
     public function getErrors()
     {
         return $this->error_messages;
     }
 
-
+    /**
+     * Creates new employee
+     * Changes $data to array
+     * Returns the success of the operation
+     * 
+     * @param object $data
+     * 
+     * @return bool
+     */
     public function create(object $data)
     {
         $isValid = $this->validate($data);
@@ -78,6 +116,15 @@ class Employee
         }
     }
 
+    /**
+     * Updates existing employee
+     * Changes $data to array
+     * Returns the success of the operation
+     * 
+     * @param object $data
+     * 
+     * @return bool
+     */
     public function update(object $data)
     {
         $isValid = $this->validate($data);
@@ -96,6 +143,15 @@ class Employee
         }
     }
 
+    /**
+     * Determine whether to update or insert $data by specified $method
+     * Returns the success of the operation
+     * 
+     * @param object $data
+     * @param string $method
+     * 
+     * @return bool
+     */
     public function save(object $data, string $method)
     {
         switch ($method) {
@@ -108,6 +164,15 @@ class Employee
         }
     }
 
+    /**
+     * Deletes existing employee
+     * Changes $data to array
+     * Returns the success of the operation
+     * 
+     * @param object $data
+     * 
+     * @return bool
+     */
     public function delete(object $data)
     {
         $data = [
@@ -115,9 +180,16 @@ class Employee
         ];
 
         return $this->destroy($data);
-
     }
 
+    /**
+     * Deletes existing employee
+     * Returns the success of the operation
+     * 
+     * @param array $data
+     * 
+     * @return bool
+     */
     public function destroy(array $data)
     {
         return $this->employeeStore->destroy($data);
