@@ -92,7 +92,7 @@ class Employee
 
     /**
      * Creates new employee
-     * Changes $data to array
+     * Creates array from $data
      * Returns the success of the operation
      * 
      * @param object $data
@@ -118,7 +118,7 @@ class Employee
 
     /**
      * Updates existing employee
-     * Changes $data to array
+     * Creates array from $data
      * Returns the success of the operation
      * 
      * @param object $data
@@ -166,7 +166,7 @@ class Employee
 
     /**
      * Deletes existing employee
-     * Changes $data to array
+     * Creates array from $data
      * Returns the success of the operation
      * 
      * @param object $data
