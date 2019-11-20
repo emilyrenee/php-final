@@ -21,11 +21,10 @@ class EmployeeRepository implements EmployeeRepositoryInterface
 
     /**
      * Find an employee.
-     * Return array containing matching $id.
      * 
      * @param int $id
      * 
-     * @return array
+     * @return array Array containing employee that matches $id.
      */
     public function find($id)
     {
@@ -34,9 +33,8 @@ class EmployeeRepository implements EmployeeRepositoryInterface
 
     /**
      * Find all employees.
-     * Returns array containing all employees.
      * 
-     * @return array
+     * @return array Array containing all employees.
      */
     public function findAll()
     {
@@ -45,11 +43,10 @@ class EmployeeRepository implements EmployeeRepositoryInterface
 
     /**
      * Creates new employee with data.
-     * Returns the success of the operation.
      * 
      * @param object $data
      * 
-     * @return bool
+     * @return bool The success of the operation.
      */
     public function create($data)
     {
@@ -63,11 +60,10 @@ class EmployeeRepository implements EmployeeRepositoryInterface
 
     /**
      * Updates existing employee with data.
-     * Returns the success of the operation.
      * 
      * @param object $data
      * 
-     * @return bool
+     * @return bool The success of the operation.
      */
     public function update($data)
     {
@@ -80,10 +76,10 @@ class EmployeeRepository implements EmployeeRepositoryInterface
 
     /**
      * Deletes existing employee row.
-     * Returns the success of the operation.
      * 
      * @param array $data
-     * @return bool
+     * 
+     * @return bool The success of the operation.
      */
     public function destroy(array $data)
     {

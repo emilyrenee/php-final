@@ -3,7 +3,7 @@
 namespace App\Interfaces;
 
 /**
- * CRUD Operations
+ * Available CRUD Operations
  */
 interface EmployeeRepositoryInterface {
     public function find($id);

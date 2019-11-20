@@ -8,7 +8,7 @@ use App\Core\Request;
 use App\Repositories\EmployeeRepository;
 
 /**
- * Returns a view file with data
+ * Requires and returns a view file with extracted data.
  * 
  * @param string $name
  * @param array $data
@@ -50,9 +50,8 @@ class EmployeeController
 
     /**
      * Get all employees.
-     * Returns array containing all employees.
      * 
-     * @return array
+     * @return array All employees.
      */
     public function employees()
     {
@@ -60,11 +59,9 @@ class EmployeeController
     }
 
     /**
-     * Get an employee.
-     * Returns array containing the employee
-     * that matches id from the request parameter.
+     * Get an employee by the request's id param.
      * 
-     * @return array
+     * @return array Contains employee matching param id. 
      */
     public function employee()
     {
@@ -126,9 +123,7 @@ class EmployeeController
      * Delete an employee
      * with the POST data id.
      * 
-     * Returns the 'index' view.
-     * 
-     * @return mixed
+     * @return mixed Redirect to index.
      */
     public function delete()
     {
@@ -139,9 +134,9 @@ class EmployeeController
     }
 
     /**
-     * Returns the 'index' view with all exmployees' data
+     * View all employees.
      * 
-     * @return mixed
+     * @return mixed The 'index' view with all exmployees' data.
      */
     public function viewAll()
     {
@@ -150,9 +145,9 @@ class EmployeeController
     }
 
     /**
-     * Returns the 'view' view with an employee's data
+     * View an employee.
      * 
-     * @return mixed
+     * @return mixed The 'view' view with an employee's data.
      */
     public function viewEmployee()
     {
@@ -162,9 +157,9 @@ class EmployeeController
     }
 
     /**
-     * Returns the 'create' view
+     * View to create new employee.
      * 
-     * @return mixed
+     * @return mixed The 'create' view.
      */
     public function viewCreate()
     {
@@ -172,9 +167,9 @@ class EmployeeController
     }
 
     /**
-     * Returns the 'edit' view with an employee's data
+     * View to edit existing employee.
      * 
-     * @return mixed
+     * @return mixed The 'edit' view with an employee's data.
      */
     public function viewEdit()
     {

@@ -18,11 +18,10 @@ class Employee
 
     /**
      * Find an employee
-     * Returns array containing employee matching $id
      * 
      * @param int $id
      * 
-     * @return array
+     * @return array Contains employee matching $id.
      */
     public function find($id)
     {
@@ -30,10 +29,9 @@ class Employee
     }
 
     /**
-     * Find all employees 
-     * Returns array containing all employees
+     * Find all employees
      * 
-     * @return array
+     * @return array Contains all employees.
      */
     public function findAll()
     {
@@ -44,7 +42,7 @@ class Employee
      * Determines if data object is valid
      * 
      * @param object $data
-     * @return bool
+     * @return bool The success of the operation. The validity of the data object.
      */
     public function validate(object $data)
     {
@@ -58,11 +56,10 @@ class Employee
     }
 
     /**
-     * Sets $error_messages to array that contains
-     * the validation errors for invalid data object
+     * Sets $error_messages to the validation errors for invalid data object.
      * 
      * @param object $data
-     * @return array
+     * @return array The validation errrors.
      */
     public function errors(object $data)
     {
@@ -84,9 +81,9 @@ class Employee
     }
 
     /**
-     * Returns array containing all validation errors
+     * Get all validation errors.
      * 
-     * @return array
+     * @return array Contains all validation errors.
      */
     public function getErrors()
     {
@@ -94,13 +91,13 @@ class Employee
     }
 
     /**
-     * Creates new employee
-     * Creates array from $data
-     * Returns the success of the operation
+     * Creates new employee.
+     * Checks if $data is valid.
+     * If valid, creates array from $data.
      * 
      * @param object $data
      * 
-     * @return bool
+     * @return bool The success of the operation.
      */
     public function create(object $data)
     {
@@ -120,13 +117,13 @@ class Employee
     }
 
     /**
-     * Updates existing employee
-     * Creates array from $data
-     * Returns the success of the operation
+     * Updates existing employee.
+     * Checks if $data is valid.
+     * If valid, creates array from $data.
      * 
      * @param object $data
      * 
-     * @return bool
+     * @return bool The success of the operation.
      */
     public function update(object $data)
     {
@@ -147,13 +144,13 @@ class Employee
     }
 
     /**
-     * Determine whether to update or insert $data by specified $method
-     * Returns the success of the operation
+     * Determine whether to update or insert $data by specified $method.
+     * Calls the method associated with specified $method.
      * 
      * @param object $data
      * @param string $method
      * 
-     * @return bool
+     * @return bool The success of the operation.
      */
     public function save(object $data, string $method)
     {
@@ -168,13 +165,13 @@ class Employee
     }
 
     /**
-     * Deletes existing employee
-     * Creates array from $data
-     * Returns the success of the operation
+     * Deletes existing employee.
+     * Checks if $data is valid.
+     * If valid, creates array from $data
      * 
      * @param object $data
      * 
-     * @return bool
+     * @return bool The success of the operation.
      */
     public function delete(object $data)
     {
@@ -187,11 +184,10 @@ class Employee
 
     /**
      * Deletes existing employee
-     * Returns the success of the operation
      * 
      * @param array $data
      * 
-     * @return bool
+     * @return bool The success of the operation.
      */
     public function destroy(array $data)
     {
