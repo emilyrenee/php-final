@@ -22,7 +22,7 @@ function view(string $name, array $data = [])
 }
 
 /**
- * Redirects to a new location
+ * Redirects to location
  * 
  * @param string $path
  * 
@@ -34,7 +34,7 @@ function redirect(string $path)
 }
 
 /**
- * // TODO: The Exmployee Controller
+ *  Returns data and or views for Employee
  */
 class EmployeeController
 {
@@ -68,7 +68,7 @@ class EmployeeController
      */
     public function employee()
     {
-        $id = Request::params();
+        $id = Request::param('id');
         return $this->employee->find($id);
     }
 

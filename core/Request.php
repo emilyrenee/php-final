@@ -17,11 +17,16 @@ class Request
         );
     }
 
-    public static function params()
+    /**
+     * Get a request param.
+     * 
+     * @param string $name
+     * 
+     * @return string
+     */
+    public static function param($name)
     {
-        // just hardcoded for id
-        $id = $_GET['id'];
-        return $id;
+        return $_GET[$name];
     }
 
     /**

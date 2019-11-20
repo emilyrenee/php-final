@@ -4,6 +4,10 @@ namespace App\Core;
 
 use PDO;
 
+/**
+ * Contruct queries.
+ * Execute queries with PDO.
+ */
 class QueryBuilder
 {
     /**
@@ -18,11 +22,21 @@ class QueryBuilder
         $this->pdo = $pdo;
     }
 
+    /**
+     * Get the id of the last row inserted.
+     * 
+     * @return int
+     */
     public function lastInsert()
     {
         return $this->pdo->lastInsertId();
     }
 
+    /**
+     * Get all rows in a table.
+     * 
+     * @return array
+     */
     public function selectAll(string $table)
     {
         $statement = $this->pdo->prepare("select * from {$table}");
@@ -30,6 +44,14 @@ class QueryBuilder
         return $statement->fetchAll(PDO::FETCH_CLASS);
     }
 
+    /**
+     * Get the table rows matching an id.
+     * 
+     * @param string $table
+     * @param int $id
+     * 
+     * @return array
+     */
     public function selectById(string $table, int $id)
     {
         $statement = $this->pdo->prepare("select * from {$table} where id= {$id}");
@@ -37,6 +59,14 @@ class QueryBuilder
         return $statement->fetchAll(PDO::FETCH_CLASS);
     }
 
+    /**
+     * Insert data as a new row into a table.
+     * 
+     * @param string $table
+     * @param array $parameters
+     * 
+     * @return bool
+     */
     public function insert(string $table, array $parameters)
     {
         $sql = sprintf(
@@ -55,6 +85,14 @@ class QueryBuilder
         }
     }
 
+     /**
+     * Update a row in a table with data.
+     * 
+     * @param string $table
+     * @param array $parameters
+     * 
+     * @return bool
+     */
     public function update(string $table, array $parameters)
     {
         $name = $parameters['name'];
@@ -71,6 +109,14 @@ class QueryBuilder
         }
     }
 
+    /**
+     * Delete a row from a table with an id.
+     * 
+     * @param string $table
+     * @param array $parameters
+     * 
+     * @return bool
+     */
     public function delete(string $table, array $parameters)
     {
         $id = $parameters['id'];

@@ -8,7 +8,7 @@ class Employee
 {
     /** @type array $error_message Contains array of known validation errors */
     public $error_messages = [];
-    /** // TODO: @type mixed $employeeStore Employee Instance */
+    /** @type Employee $employeeStore */
     protected $employeeStore;
 
     public function __construct(EmployeeRepositoryInterface $employee)
@@ -17,9 +17,11 @@ class Employee
     }
 
     /**
+     * Find an employee
      * Returns array containing employee matching $id
      * 
      * @param int $id
+     * 
      * @return array
      */
     public function find($id)
@@ -28,6 +30,7 @@ class Employee
     }
 
     /**
+     * Find all employees 
      * Returns array containing all employees
      * 
      * @return array
